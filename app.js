@@ -20,6 +20,8 @@ mongoose
   });
 
 const authRouter = require('./routes/auth');
+const journeyRouter = require('./routes/journeys');
+const { checkIfLoggedIn } = require('./middlewares');
 
 const app = express();
 
@@ -57,6 +59,7 @@ app.use((req, res, next) => {
 });
 
 app.use('/', authRouter);
+app.use('/journeys', checkIfLoggedIn, journeyRouter);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
