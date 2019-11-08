@@ -29,13 +29,21 @@ router.get('/:journeyId', async (req, res, next) => {
 });
 
 router.post('/', async (req, res, next) => {
-  const { latitude, longitude, journeyDate } = req.body;
+  const {
+    originLongitude,
+    originLatitude,
+    destinationLongitude,
+    destinationLatitude,
+    time,
+  } = req.body;
 
   try {
     const journey = await Journeys.create({
-      longitude,
-      latitude,
-      journeyDate,
+      originLongitude,
+      originLatitude,
+      destinationLongitude,
+      destinationLatitude,
+      time,
     });
     return res.json({
       status: 200,
