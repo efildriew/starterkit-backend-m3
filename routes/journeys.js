@@ -1,40 +1,40 @@
-const express = require('express');
+const express = require("express");
 
 const router = express.Router();
-const Journeys = require('../models/Journeys');
+const Journeys = require("../models/Journeys");
 
-router.get('/', async (req, res, next) => {
+router.get("/", async (req, res, next) => {
   try {
     const journeys = await Journeys.find();
     return res.json({
       status: 200,
-      journeys,
+      journeys
     });
   } catch (error) {
     next(error);
   }
 });
 
-router.get('/:journeyId', async (req, res, next) => {
+router.get("/:journeyId", async (req, res, next) => {
   try {
     const { journeyId } = req.params;
     const journey = await Journeys.findById(journeyId);
     return res.json({
       status: 200,
-      journey,
+      journey
     });
   } catch (error) {
     next(error);
   }
 });
 
-router.post('/', async (req, res, next) => {
+router.post("/", async (req, res, next) => {
   const {
     originLongitude,
     originLatitude,
     destinationLongitude,
     destinationLatitude,
-    time,
+    time
   } = req.body;
 
   try {
@@ -43,41 +43,50 @@ router.post('/', async (req, res, next) => {
       originLatitude,
       destinationLongitude,
       destinationLatitude,
-      time,
+      time
     });
     return res.json({
       status: 200,
-      journey,
+      journey
     });
   } catch (error) {
     next(error);
   }
 });
 
-router.put('/:journeyId', async (req, res, next) => {
+router.put("/:journeyId", async (req, res, next) => {
   try {
     const { journeyId } = req.params;
-    const { latitude, longitude } = req.body;
+    const {
+      originLongitude,
+      originLatitude,
+      destinationLongitude,
+      destinationLatitude,
+      time
+    } = req.body;
     const journey = await Journeys.findByIdAndUpdate(journeyId, {
-      longitude,
-      latitude,
+      originLongitude,
+      originLatitude,
+      destinationLongitude,
+      destinationLatitude,
+      time
     });
     return res.json({
       status: 200,
-      journey,
+      journey
     });
   } catch (error) {
     next(error);
   }
 });
 
-router.delete('/:journeyId', async (req, res, next) => {
+router.delete("/:journeyId", async (req, res, next) => {
   try {
     const { journeyId } = req.params;
     const journey = await Journeys.findByIdAndDelete(journeyId);
     return res.json({
       status: 200,
-      journey,
+      journey
     });
   } catch (error) {
     next(error);
