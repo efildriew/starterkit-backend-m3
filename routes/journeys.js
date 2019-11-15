@@ -29,25 +29,30 @@ router.get("/:journeyId", async (req, res, next) => {
 });
 
 router.post("/", async (req, res, next) => {
-  const {
-    originLongitude,
-    originLatitude,
-    destinationLongitude,
-    destinationLatitude,
-    time
-  } = req.body;
-
+  const journey = req.body;
+  console.log(req.body);
   try {
-    const journey = await Journeys.create({
-      originLongitude,
-      originLatitude,
-      destinationLongitude,
-      destinationLatitude,
-      time
+    const newJourney = await Journeys.create({
+      startLocation: {
+        coordinates: [
+          journey.originCoordinates[1],
+          journey.originCoordinates[0]
+        ],
+        name: journey.originName
+      },
+      endLocation: {
+        coordinates: [
+          journey.destinationCoordinates[1],
+          journey.destinationCoordinates[0]
+        ],
+        name: journey.destinationName
+      },
+      time: journey.time
     });
+    console.log(newJourney);
     return res.json({
       status: 200,
-      journey
+      newJourney
     });
   } catch (error) {
     next(error);
