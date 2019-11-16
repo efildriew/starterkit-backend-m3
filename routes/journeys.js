@@ -62,18 +62,19 @@ router.post("/", async (req, res, next) => {
 router.put("/:journeyId", async (req, res, next) => {
   try {
     const { journeyId } = req.params;
+    console.log(req.body);
     const updatedJourney = await Journeys.findByIdAndUpdate(journeyId, {
       startLocation: {
         coordinates: [
-          req.body.originCoordinates[0],
-          req.body.originCoordinates[1]
+          req.body.originCoordinates[1],
+          req.body.originCoordinates[0]
         ],
         name: req.body.originName
       },
       endLocation: {
         coordinates: [
-          req.body.destinationCoordinates[0],
-          req.body.destinationCoordinates[1]
+          req.body.destinationCoordinates[1],
+          req.body.destinationCoordinates[0]
         ],
         name: req.body.destinationName
       },
