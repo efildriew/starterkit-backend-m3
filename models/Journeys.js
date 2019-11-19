@@ -7,13 +7,12 @@ const journeySchema = new Schema(
     owner: {
       type: Schema.Types.ObjectId,
       ref: "User"
-      // required: true,
     },
     startLocation: {
       type: {
-        type: String, // Don't do `{ location: { type: String } }`
+        type: String,
         default: "Point",
-        enum: ["Point"], // 'location.type' must be 'Point'
+        enum: ["Point"],
         required: true
       },
       coordinates: {
@@ -24,9 +23,9 @@ const journeySchema = new Schema(
     },
     endLocation: {
       type: {
-        type: String, // Don't do `{ location: { type: String } }`
+        type: String,
         default: "Point",
-        enum: ["Point"], // 'location.type' must be 'Point'
+        enum: ["Point"],
         required: true
       },
       coordinates: {
